@@ -22,12 +22,18 @@ import java.util.stream.Collectors;
  * Vorteil: Wiederverwendung von Member, ID verwenden; Strenge Implementierung gegen Interface
  * Nachteil: Viele Casts notwendig, um auf die anderen Methoden zuzugreifen
  *
+ *
  * Alternative 2:
  * Container mit Generic entwickeln (z.B. Container<E>))
+ *
  *
  * Entwurfsentscheidung: Die wichtigsten Zuständigkeiten (responsibilities) sind in einer Klasse, d.h. Container,
  * diese liegt in einem Package.
  * ToDo: Wie bewerten Sie diese Entscheidung? (F2, F6)
+ *  Trägt definitiv nicht zur Übersichtlichkeit bei. Das zu schreibende Terminal Programm
+ *  sollte definitiv in eine weitere Klasse ausgelagert werden. Die Ausgabe gehört ebenfalls nicht
+ *  in diese Klasse, genau wie die Eingabe (Gehört alles nicht so richtig in einen Container).
+ *
  * 
  */
 
@@ -40,8 +46,13 @@ public class Container {
 	// auf das einzige Container-Objekt abzuspeichern
 	// Diese Variante sei thread-safe, so hat Hr. P. es gehört... stimmt das?
 	// Todo: Bewertung Thread-Safeness (F1)
+	// Ja die Instanz ist Thread-Safe
 	// Nachteil: ggf. geringer Speicherbedarf, da Singleton zu Programmstart schon erzeugt wird
+	//
 	// Todo: Bewertung Speicherbedarf (F1)
+	// Hier gibt es einen hohen Speicherbedarf, weil man das Objekt direkt erzeugt und in den Speicher legt.
+	//Todo: Ist das Singelton richtig implementiert? (F1)
+	// Nein, weil der Konstruktor nicht privat ist. Ansonsten wird die Instantz direkt beim Laden der Klasse zurückgegeben, das ist richtig.
 	private static Container instance = new Container();
 	
 	// URL der Datei, in der die Objekte gespeichert werden 
@@ -53,7 +64,7 @@ public class Container {
 	 */
 	public static Container getInstance() {
 		return instance;
-	}
+	} // synchronized für thread safe
 	
 	/**
 	 * Vorschriftsmäßiges Ueberschreiben des Konstruktors (private) gemaess Singleton-Pattern (oder?)
@@ -61,7 +72,7 @@ public class Container {
 	 */
 	Container(){
 		liste = new ArrayList<UserStory>();
-	}
+	} // Konstruktor private setzen
 	
 	/**
 	 * Start-Methoden zum Starten des Programms 
@@ -69,6 +80,7 @@ public class Container {
 	 */
 	public static void main (String[] args) throws Exception {
 		// ToDo: Bewertung Exception-Handling (F3, F7)
+		// TryCatch benutzen
 		Container con = Container.getInstance();
 		con.startEingabe(); 
 	}
@@ -83,11 +95,13 @@ public class Container {
 		
 		// Initialisierung des Eingabe-View
 		// ToDo: Funktionsweise des Scanners erklären (F3)
+		//
+		//
 		Scanner scanner = new Scanner( System.in );
+		// Ausgabe eines Texts zur Begruessung
+		System.out.println("UserStory-Tool V1.0 by Julius P. (dedicated to all my friends)");
 
 		while ( true ) {
-			// Ausgabe eines Texts zur Begruessung
-			System.out.println("UserStory-Tool V1.0 by Julius P. (dedicated to all my friends)");
 
 			System.out.print( "> "  );
 

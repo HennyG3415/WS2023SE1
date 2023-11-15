@@ -1,5 +1,6 @@
 package org.hbrs.se1.ws23.uebung4.prototype;
-    public class UserStory {
+    public class UserStory implements java.io.Serializable {
+        // immer wenn man Objekt über ein Netzwerk transportieren / abspeichern möchte, muss man es über das Interface Serializable machen
         // ToDo: Sind die Attribute der Klasse UserStory vollständig? (F4)
 
         String titel;
