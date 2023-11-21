@@ -1,4 +1,4 @@
-package org.hbrs.se1.ws23.uebung4.prototype.improvements.controller;
+package org.hbrs.se1.ws23.uebung4_2.prototype.controller;
 
 import java.io.*;
 import java.util.*;
@@ -146,7 +146,7 @@ public class Container {
 		ObjectOutputStream oos = null;
 		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream( Container.LOCATION );
+			fos = new FileOutputStream(Container.LOCATION );
 			oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject( this.liste );
